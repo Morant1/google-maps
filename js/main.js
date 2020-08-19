@@ -96,6 +96,13 @@ function renderLocationTable(locations) {
     document.querySelector('.locations-table').innerHTML = strHtmls.join(' ');
 }
 
+document.querySelector('.location-go').addEventListener('click', function(this){
+
+
+
+}
+
+)
 
 
 // document.querySelector('.go').addEventListener('click', () => {
@@ -127,7 +134,6 @@ document.querySelector('.my-location').onclick = () => {
         let position = {lat : pos.coords.latitude , lng: pos.coords.longitude}
         mapService.addMarker(position)
     }) 
-
     .catch(err => {
         console.log('Cannot get user location', err);
     })
