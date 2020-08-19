@@ -135,11 +135,12 @@ function putClicks() {
 
 
 
-// document.querySelector('.delete').onclick = () => {
-//     locService.removeLocation()
-//     .then(data => {
-//         renderLocationTable(locService.getLocs())
-//     })
+document.querySelector('.delete').onclick = () => {
+    locService.removeLocation()
+    .then(data => {
+        renderLocationTable(locService.getLocs())
+    })
+}
     
 // };
 
@@ -173,6 +174,7 @@ document.querySelector('.my-location').onclick = () => {
         let position = {lat : pos.coords.latitude , lng: pos.coords.longitude}
         mapService.addMarker(position)
     }) 
+
     .catch(err => {
         console.log('Cannot get user location', err);
     })
