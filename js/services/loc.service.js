@@ -47,13 +47,7 @@ function removeLocation(id) {
     return Promise.resolve()
 }
 
-document.querySelector('.delete').onclick = () => {
-    locService.removeLocation()
-    .then(data => {
-        renderLocationTable(locService.getLocs())
-    })
-    
-};
+
 
 function saveLocations(val) {
     saveToStorage(val)

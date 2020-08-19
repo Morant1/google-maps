@@ -85,6 +85,8 @@ function renderLocationTable(locations) {
             <li>lat: ${location.pos.lat}</li>
             <li>lng: ${location.pos.lng}</li>
             <li>Created at: ${location.createdAt}</li>
+            <li><button data-id=${location.id} class="location-go">GO</button></li>
+            <li><button data-id=${location.id} class="location-delete">DELETE</button></li>
             </ul>
         
         `
@@ -93,16 +95,35 @@ function renderLocationTable(locations) {
     document.querySelector('.locations-table').innerHTML = strHtmls.join(' ');
 }
 
-
-
-
-
-document.querySelector('.go').addEventListener('click', (ev) => {
-    // console.log('Aha!', ev.target);
-    console.log(ev)
+document.querySelector('.delete').onclick = () => {
+    locService.removeLocation()
+    .then(data => {
+        renderLocationTable(locService.getLocs())
+    })
     
-    // mapService.panTo(35.6895, 139.6917);
-})
+};
+
+
+// document.querySelector('.go').addEventListener('click', () => {
+//     var userInput = document.querySelector('.input-user').value;
+    
+//     locService.getLocs()
+//         .then(locs => {checkInput(locs,userInput)});
+    
+//     // mapService.panTo(35.6895, 139.6917);
+// })
+
+// function checkInput(locs,user) {
+//     var idx = locs.findIndex(loc => loc.name === user)
+//     if (idx !== -1) {
+//         mapService.panTo(locs[idx].pos.lat , locs[idx].pos.lng)
+//         let position = {lat: locs[idx].pos.lat,lng: locs[idx].pos.lng}
+//         console.log(position)
+//         mapService.addMarker(position)
+//     }
+// }
+
+
 
 
 document.querySelector('.my-location').onclick = () => {
