@@ -41,10 +41,11 @@ function createLocation(name, lat, lng) {
 }
 
 function removeLocation(id) {
-    let idx = locs.findIndex(location => location.id === id)
+    let idx = locs.findIndex(location => {
+     return location.id === id})
     locs.splice(idx , 1)
     saveLocations(locs)
-    return Promise.resolve()
+    return Promise.resolve(locs)
 }
 
 

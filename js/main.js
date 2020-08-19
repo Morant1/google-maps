@@ -17,6 +17,7 @@ window.onload = () => {
             mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
             clickMap()
 
+
         })
         .catch(console.log('INIT MAP ERROR'));
 
@@ -58,6 +59,7 @@ function clickMap() {
         
         let userLocationName = prompt('Enter Location Name')
         let position = mapsMouseEvent.latLng.toString()
+        // console.log(mapsMouseEvent.latLng.lat())
         let newPosition = position.slice(1, position.length -1).split(',')
         // console.log('newPosition', newPosition);
         
@@ -68,17 +70,16 @@ function clickMap() {
         locService.createLocation(userLocationName, +newPosition[0], +newPosition[1]);
         locService.getLocs()
         .then(renderLocationTable);
+      
         
 
     });
 }
 
 function renderLocationTable(locations) {
-    console.log("IN")
-    console.log(locations)
 
     var strHtmls = locations.map((location) => {
-        console.log(location)
+      
         return `
             <ul class="location">
             <li>Location Name: ${location.name}</li>
@@ -91,24 +92,56 @@ function renderLocationTable(locations) {
         
         `
     })
-    console.log(strHtmls)
     document.querySelector('.locations-table').innerHTML = strHtmls.join(' ');
-}
-
-document.querySelector('.location-go').addEventListener('click', function(this){
+    putClicks();
 
 
-
-}
-
-)
-document.querySelector('.delete').onclick = () => {
-    locService.removeLocation()
-    .then(data => {
-        renderLocationTable(locService.getLocs())
-    })
     
-};
+}
+
+
+function putClicks() {
+    let buttonsGo = document.querySelectorAll('.location-go');
+        locService.getLocs()
+                .then(locs => {
+                    buttonsGo.forEach(button => {
+                        button.onclick= () => {
+                            var loc = locs.find(location => {
+                                 return location.id ===  +button.dataset.id
+                            })
+                                mapService.panTo(loc.pos.lat , loc.pos.lng)
+                                let position = {lat: loc.pos.lat,lng: loc.pos.lng}
+                                mapService.addMarker(position)
+    
+                            
+                        }
+            
+                    })
+    
+                });
+
+
+    let buttons = document.querySelectorAll('.location-delete');
+    buttons.forEach((button) =>{
+                button.onclick = () => {
+                let id = button.dataset.id;
+                locService.removeLocation(+id)
+                .then(data => {
+                    renderLocationTable(data)
+                })
+            };
+    })
+}
+
+
+
+// document.querySelector('.delete').onclick = () => {
+//     locService.removeLocation()
+//     .then(data => {
+//         renderLocationTable(locService.getLocs())
+//     })
+    
+// };
 
 
 // document.querySelector('.go').addEventListener('click', () => {
