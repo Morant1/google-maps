@@ -102,3 +102,17 @@ document.querySelector('.go').addEventListener('click', (ev) => {
     
     // mapService.panTo(35.6895, 139.6917);
 })
+
+
+document.querySelector('.my-location').onclick = () => {
+    locService.getPosition()
+    .then(pos => {
+        mapService.panTo(pos.coords.latitude , pos.coords.longitude)
+        let position = {lat : pos.coords.latitude , lng: pos.coords.longitude}
+        mapService.addMarker(position)
+    }) 
+
+    .catch(err => {
+        console.log('Cannot get user location', err);
+    })
+}
