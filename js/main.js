@@ -59,12 +59,6 @@ function clickMap() {
         let userLocationName = prompt('Enter Location Name')
         let position = mapsMouseEvent.latLng.toString()
         let newPosition = position.slice(1, position.length -1).split(',')
-        // console.log('newPosition', newPosition);
-        
-
-        // userLocation.name = userLocationName;
-        // userLocation.lat = +newPosition[0]
-        // userLocation.lng = +newPosition[1]
         locService.createLocation(userLocationName, +newPosition[0], +newPosition[1]);
         locService.getLocs()
         .then(renderLocationTable);
@@ -90,27 +84,25 @@ function renderLocationTable(locations) {
             </ul>
         
         `
+        
     })
     console.log(strHtmls)
     document.querySelector('.locations-table').innerHTML = strHtmls.join(' ');
-}
 
 
-document.querySelector('.location-go').addEventListener('click', function(this){
-
-
-
-}
-
-)
-
-document.querySelector('.delete').onclick = () => {
-    locService.removeLocation()
-    .then(data => {
-        renderLocationTable(locService.getLocs())
-    })
     
-};
+}
+
+
+// document.querySelector('.location-go').addEventListener('click', function(this){
+
+
+
+// }
+
+// )
+
+
 
 
 // document.querySelector('.go').addEventListener('click', () => {

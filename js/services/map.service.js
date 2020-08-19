@@ -28,7 +28,12 @@ export function getMap() {
     return map;
 }
 
+function getGeoCodeLocation() {
+    
+        return axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyAo_8PwXbZvNqsCkm0ZIWcsxi66j2pKRKA')
+                    .then(res => res.data)
 
+}
 
 
 function addMarker(loc) {
