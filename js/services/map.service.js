@@ -10,7 +10,6 @@ export const mapService = {
 var map;
 
 export function initMap(lat , lng) {
-    console.log(lat,lng)
     if (!lat && !lng) lat = 32.0749831, lng = 34.9120554
     
     console.log('InitMap');

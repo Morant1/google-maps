@@ -26,7 +26,7 @@ window.onload = () => {
 
     mapService.initMap(+defLat, +defLng)
         .then(() => {
-
+            mapService.panTo(+defLat, +defLng)
             mapService.addMarker({
                 lat: mapService.getMap().center.lat(),
                 lng: mapService.getMap().center.lng()
