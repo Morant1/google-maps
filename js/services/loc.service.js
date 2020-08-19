@@ -1,8 +1,12 @@
+var gId = 101
+const key = 'locations'
+
 export const locService = {
-    getLocs: getLocs,
-    getPosition: getPosition
+    getLocs,
+    getPosition,
+    createLocation
 }
-var locs = [{ lat: 11.22, lng: 22.11 }]
+var locs = []
 
 function getLocs() {
     return new Promise((resolve, reject) => {
@@ -13,7 +17,8 @@ function getLocs() {
 }
 
 
-function getPosition() {
+
+function getPosition() { //user position
     console.log('Getting Pos');
 
     return new Promise((resolve, reject) => {
@@ -21,3 +26,28 @@ function getPosition() {
     })
 }
 
+function createLocation(name, lat, lng) {
+        let location = {
+            id: gId++,
+            name,
+            pos: {lat, lng},
+            createdAt: new Date().toLocaleString()
+        }
+        locs.push(location)
+        saveLocations(locs)
+
+}
+
+function saveLocations(val) {
+    saveToStorage(val)
+}
+
+
+function saveToStorage(val) {
+    localStorage.setItem(key, JSON.stringify(val))
+}
+
+function loadFromStorage() {
+    var val = localStorage.getItem(key)
+    return JSON.parse(val)
+}
