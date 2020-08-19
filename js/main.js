@@ -39,7 +39,6 @@ window.onload = () => {
 function clickMap() {
     // let userLocation = {}
     let map = mapService.getMap()
-    console.log('map in controller', map);
     var myLatlng = {lat: -25.363, lng: 131.044};
 
     var infoWindow = new google.maps.InfoWindow(
@@ -78,7 +77,7 @@ function renderLocationTable(locations) {
     console.log("IN")
     console.log(locations)
 
-    var strHtmls = locations.map((location)=> {
+    var strHtmls = locations.map((location) => {
         console.log(location)
         return `
             <ul class="location">
@@ -103,6 +102,13 @@ document.querySelector('.location-go').addEventListener('click', function(this){
 }
 
 )
+document.querySelector('.delete').onclick = () => {
+    locService.removeLocation()
+    .then(data => {
+        renderLocationTable(locService.getLocs())
+    })
+    
+};
 
 
 // document.querySelector('.go').addEventListener('click', () => {
@@ -138,3 +144,4 @@ document.querySelector('.my-location').onclick = () => {
         console.log('Cannot get user location', err);
     })
 }
+
