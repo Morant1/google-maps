@@ -3,13 +3,18 @@ export const mapService = {
     initMap,
     addMarker,
     panTo,
-    getMap
+    getMap,
+    getGeoCodeLocation
 }
 
 var map;
 
-export function initMap(lat = 32.0749831, lng = 34.9120554) {
+export function initMap(lat , lng) {
+    if (!lat && !lng) lat = 32.0749831, lng = 34.9120554
+    
     console.log('InitMap');
+    console.log('lat,lng', lat,lng);
+
     return _connectGoogleApi()
         .then(() => {
             console.log('google available');
@@ -28,11 +33,9 @@ export function getMap() {
     return map;
 }
 
-function getGeoCodeLocation() {
-    
-        return axios.get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyAo_8PwXbZvNqsCkm0ZIWcsxi66j2pKRKA')
-                    .then(res => res.data)
-
+function getGeoCodeLocation(userInput) {
+            return axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${userInput}&key=AIzaSyBBCOBcDeaFCoGrW6JMFH3k-AFLC2i4M8k`)
+            .then(res => res.data)
 }
 
 

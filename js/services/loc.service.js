@@ -42,8 +42,7 @@ function createLocation(name, lat, lng) {
 
 function removeLocation(id) {
     let idx = locs.findIndex(location => {
-     return location.id === id
-    } )
+     return location.id === id})
     locs.splice(idx , 1)
     saveLocations(locs)
     return Promise.resolve(locs)
