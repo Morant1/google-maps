@@ -4,7 +4,8 @@ const key = 'locations'
 export const locService = {
     getLocs,
     getPosition,
-    createLocation
+    createLocation,
+    removeLocation
 }
 var locs = []
 
@@ -38,6 +39,21 @@ function createLocation(name, lat, lng) {
         saveLocations(locs)
 
 }
+
+function removeLocation(id) {
+    let idx = locs.findIndex(location => location.id === id)
+    locs.splice(idx , 1)
+    saveLocations(locs)
+    return Promise.resolve()
+}
+
+document.querySelector('.delete').onclick = () => {
+    locService.removeLocation()
+    .then(data => {
+        renderLocationTable(locService.getLocs())
+    })
+    
+};
 
 function saveLocations(val) {
     saveToStorage(val)
