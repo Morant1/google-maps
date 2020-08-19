@@ -26,7 +26,6 @@ window.onload = () => {
 
     mapService.initMap(+defLat, +defLng)
         .then(() => {
-            mapService.panTo(+defLat, +defLng)
             mapService.addMarker({
                 lat: mapService.getMap().center.lat(),
                 lng: mapService.getMap().center.lng()
@@ -85,8 +84,8 @@ function clickMap() {
     // let userLocation = {}
     let map = mapService.getMap()
     var myLatlng = {
-        lat: -25.363,
-        lng: 131.044
+        lat: map.center.lat(),
+        lng:  map.center.lng()
     };
 
     var infoWindow = new google.maps.InfoWindow({
