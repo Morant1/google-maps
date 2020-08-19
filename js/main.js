@@ -23,13 +23,16 @@ window.onload = () => {
     locService.getPosition()
         .then(pos => {
 
-            console.log('User position is:', pos.coords);
+            console.log('User position is: lat', pos.coords.latitude ,'lng', pos.coords.longitude);
         })
         .catch(err => {
             console.log('Cannot get user-position', err);
         })
 
 }
+
+
+
 
 document.querySelector('.btn').addEventListener('click', (ev) => {
     console.log('Aha!', ev.target);
@@ -67,7 +70,8 @@ function clickMap() {
         // userLocation.lat = +newPosition[0]
         // userLocation.lng = +newPosition[1]
         locService.createLocation(userLocationName, +newPosition[0], +newPosition[1])
-        
+
 
     });
 }
+

@@ -16,7 +16,15 @@ function getLocs() {
     });
 }
 
-
+document.querySelector('.my-location-btn').onclick = () => {
+    locService.getPosition()
+    .then(pos => {
+        mapService.panTo(pos.coords.latitude , pos.coords.longitude)
+    }) 
+    .catch(err => {
+        console.log('Cannot get user location', err);
+    })
+}
 
 function getPosition() { //user position
     console.log('Getting Pos');
