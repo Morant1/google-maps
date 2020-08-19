@@ -21,11 +21,11 @@ export function initMap(lat , lng) {
             map = new google.maps.Map(
                 document.querySelector('#map'), {
                 center: { lat, lng },
-                zoom: 15
+                zoom: 6
             })
             console.log('Map!', map);
         })
-        // .then(clickMap)
+  
                 
 }
 
@@ -40,6 +40,7 @@ function getGeoCodeLocation(userInput) {
 
 
 function addMarker(loc) {
+    console.log("MARK",loc)
     var marker = new google.maps.Marker({
         position: loc,
         map: map,

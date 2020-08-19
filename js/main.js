@@ -13,7 +13,7 @@ let defLng;
 
 
 window.onload = () => {
-   let url =  decodeURI('https://morant1.github.io/travel-tip/index.html?lat=35.6761919&lng=139.6503106')
+   decodeURI(window.location.search)
         .replace('?', '&')
         .split('&')
         .map(param => param.split('='))
@@ -21,21 +21,21 @@ window.onload = () => {
             values[key] = value
             if (key === 'lat') defLat = values[key]
             if (key === 'lng') defLng = values[key]
-         ;
             return values
         }, {})
+
     mapService.initMap(+defLat, +defLng)
         .then(() => {
 
             mapService.addMarker({
-                lat: 32.0749831,
-                lng: 34.9120554
+                lat: mapService.getMap().center.lat(),
+                lng: mapService.getMap().center.lng()
             });
             clickMap()
 
 
         })
-        .catch(console.log('INIT MAP ERROR'));
+        .catch(err => console.log(err,'INIT MAP ERROR'));
 
     locService.getPosition()
         .then(pos => {
@@ -80,24 +80,6 @@ window.onload = () => {
 
     document.querySelector(".copy-link-btn").addEventListener("click", copy);
 }
-
-// function getQueryStringValue (key) {  
-//     return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));  
-//   }  
-
-//   // Would write the value of the QueryString-variable called name to the console  
-//   console.log(getQueryStringValue('lat')); 
-
-//     var url = 'https://morant1.github.io/travel-tip/index.html?lat=35.6761919&lng=139.6503106';
-// url = url.replace("?", ''); // remove the ?
-// alert(url); //alerts ProjectID=462 is your case
-
-
-
-
-
-
-
 
 function clickMap() {
     // let userLocation = {}
@@ -201,30 +183,30 @@ function putClicks() {
 
 
 
-document.querySelector('.delete').onclick = () => {
-    locService.removeLocation()
-        .then(data => {
-            renderLocationTable(locService.getLocs())
-        })
-}
+// document.querySelector('.delete').onclick = () => {
+//     locService.removeLocation()
+//         .then(data => {
+//             renderLocationTable(locService.getLocs())
+//         })
+// }
 
 
 
 
 
 
-function checkInput(locs, user) {
-    var idx = locs.findIndex(loc => loc.name === user)
-    if (idx !== -1) {
-        mapService.panTo(locs[idx].pos.lat, locs[idx].pos.lng)
-        let position = {
-            lat: locs[idx].pos.lat,
-            lng: locs[idx].pos.lng
-        }
-        console.log(position)
-        mapService.addMarker(position)
-    }
-}
+// function checkInput(locs, user) {
+//     var idx = locs.findIndex(loc => loc.name === user)
+//     if (idx !== -1) {
+//         mapService.panTo(locs[idx].pos.lat, locs[idx].pos.lng)
+//         let position = {
+//             lat: locs[idx].pos.lat,
+//             lng: locs[idx].pos.lng
+//         }
+//         console.log(position)
+//         mapService.addMarker(position)
+//     }
+// }
 
 
 
