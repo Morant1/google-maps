@@ -9,6 +9,7 @@ export const locService = {
 var locs = []
 
 function getLocs() {
+    // loadformstorage
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(locs);

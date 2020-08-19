@@ -7,8 +7,8 @@ import { mapService } from './services/map.service.js'
 
 
 
-locService.getLocs()
-    .then(locs => console.log('locs', locs))
+// locService.getLocs()
+//     .then(locs => console.log('locs', locs));
 
 window.onload = () => {
     mapService.initMap()
@@ -31,10 +31,10 @@ window.onload = () => {
 
 }
 
-document.querySelector('.btn').addEventListener('click', (ev) => {
-    console.log('Aha!', ev.target);
-    mapService.panTo(35.6895, 139.6917);
-})
+// document.querySelector('.btn').addEventListener('click', (ev) => {
+//     console.log('Aha!', ev.target);
+//     mapService.panTo(35.6895, 139.6917);
+// })
 
 function clickMap() {
     // let userLocation = {}
@@ -66,8 +66,39 @@ function clickMap() {
         // userLocation.name = userLocationName;
         // userLocation.lat = +newPosition[0]
         // userLocation.lng = +newPosition[1]
-        locService.createLocation(userLocationName, +newPosition[0], +newPosition[1])
+        locService.createLocation(userLocationName, +newPosition[0], +newPosition[1]);
+        locService.getLocs()
+        .then(renderLocationTable);
         
 
     });
 }
+
+function renderLocationTable(locations) {
+    console.log("IN")
+    console.log(locations)
+
+    var strHtmls = locations.map((location)=> {
+        console.log(location)
+        return `
+            <ul class="location">
+            <li>Location Name: ${location.name}</li>
+            <li>lat: ${location.pos.lat}</li>
+            <li>lng: ${location.pos.lng}</li>
+            <li>Created at: ${location.createdAt}</li>
+            </ul>
+        
+        `
+    })
+    console.log(strHtmls)
+    document.querySelector('.locations-table').innerHTML = strHtmls.join(' ');
+}
+
+
+
+document.querySelector('.go').addEventListener('click', (ev) => {
+    // console.log('Aha!', ev.target);
+    console.log(ev)
+    
+    // mapService.panTo(35.6895, 139.6917);
+})
